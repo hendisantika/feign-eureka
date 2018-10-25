@@ -1,5 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 **/*.iml
+**/server.iml
+**/client.iml
 **/target/*
 feign-eureka.iml
