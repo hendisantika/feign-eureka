@@ -9,6 +9,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : feign-eureka
@@ -29,8 +32,10 @@ public class HelloServerApplication {
 
     @RequestMapping("/")
     public String hello() {
-        ServiceInstance localInstance = client.getLocalServiceInstance();
-        return "Hello World: "+ localInstance.getServiceId()+":"+localInstance.getHost()+":"+localInstance.getPort();
+        List<ServiceInstance> instances = client.getInstances("HelloServer");
+        ServiceInstance selectedInstance = instances.get(new Random().nextInt(instances.size()));
+        return "Hello World: " + selectedInstance.getServiceId() + ":" + selectedInstance
+                .getHost() + ":" + selectedInstance.getPort();
     }
 
     public static void main(String[] args) {
